@@ -9,7 +9,7 @@
   "dependencies": {
     "purescript-prelude": "^3.1.1",
     "purescript-tuples": "^4.1.0",
-    "purescript-typelevel-prelude": "matthewleon/purescript-typelevel-prelude#proxy-instances"
+    "purescript-typelevel-prelude": "^2.6.0"
   },
   "devDependencies": {
     "purescript-console": "^3.0.0",

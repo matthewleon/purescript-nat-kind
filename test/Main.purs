@@ -6,7 +6,7 @@ import Control.Monad.Aff.AVar (AVAR)
 import Control.Monad.Aff.Console (CONSOLE)
 import Control.Monad.Eff (Eff)
 import Data.Tuple (Tuple(..))
-import Test.Unit (TestSuite, suite, test)
+import Test.Unit (Test, TestSuite, success, suite, test)
 import Test.Unit.Assert (equal)
 import Test.Unit.Console (TESTOUTPUT)
 import Test.Unit.Main (runTest)
@@ -60,21 +60,21 @@ tests = suite "base 10 nats" do
     -- equal 0 $ toInt $ pred d0
   suite "trich" do
     test "2 < 3" do
-      equal (OProxy :: OProxy LT) $ trich d2 d3
+      typeEqual (OProxy :: OProxy LT) $ trich d2 d3
     test "5 > 3" do
-      equal (OProxy :: OProxy GT) $ trich d5 d3
+      typeEqual (OProxy :: OProxy GT) $ trich d5 d3
     test "3 = 3" do
-      equal (OProxy :: OProxy EQ) $ trich d3 d3
+      typeEqual (OProxy :: OProxy EQ) $ trich d3 d3
     test "2 < 23" do
-      equal (OProxy :: OProxy LT) $ trich d2 d23
+      typeEqual (OProxy :: OProxy LT) $ trich d2 d23
     test "23 > 2" do
-      equal (OProxy :: OProxy GT) $ trich d23 d2
+      typeEqual (OProxy :: OProxy GT) $ trich d23 d2
     test "23 = 23" do
-      equal (OProxy :: OProxy EQ) $ trich d23 d23
+      typeEqual (OProxy :: OProxy EQ) $ trich d23 d23
     test "23 < 234" do
-      equal (OProxy :: OProxy LT) $ trich d23 d234
+      typeEqual (OProxy :: OProxy LT) $ trich d23 d234
     test "234 > 23" do
-      equal (OProxy :: OProxy GT) $ trich d234 d23
+      typeEqual (OProxy :: OProxy GT) $ trich d234 d23
   suite "comparisons" do
     test "0 < 5" do
       equal unit $ d0 `lt` d5
@@ -138,3 +138,6 @@ tests = suite "base 10 nats" do
       equal 2 $ toInt $ div10 d23
     test "5 / 10" do
       equal 0 $ toInt $ div10 d5
+
+typeEqual :: ∀ e a. a → a → Test e
+typeEqual _ _ = success
