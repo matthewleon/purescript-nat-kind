@@ -4,6 +4,8 @@ module Type.Data.Nat.Reps
   , d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, nan
   ) where
 
+import Prelude
+
 foreign import kind Nat
 
 foreign import data D0 :: Nat
@@ -20,6 +22,44 @@ foreign import data D9 :: Nat
 foreign import data NaN :: Nat
 
 data NProxy (n :: Nat) = NProxy
+
+derive instance eqNProxy :: Eq (NProxy a)
+ 
+derive instance ordNProxy :: Ord (NProxy a)
+ 
+instance booleanAlgebraNProxy :: BooleanAlgebra (NProxy a)
+ 
+instance boundedNProxy :: Bounded (NProxy a) where
+  bottom = NProxy
+  top = NProxy
+ 
+instance commutativeRingNProxy :: CommutativeRing (NProxy a)
+ 
+instance discardNProxy :: Discard (NProxy a) where
+  discard = bind
+ 
+instance heytingAlgebraNProxy :: HeytingAlgebra (NProxy a) where
+  conj _ _ = NProxy
+  disj _ _ = NProxy
+  implies _ _ = NProxy
+  ff = NProxy
+  not _ = NProxy
+  tt = NProxy
+ 
+instance ringNProxy :: Ring (NProxy a) where
+  sub _ _ = NProxy
+ 
+instance semigroupNProxy :: Semigroup (NProxy a) where
+  append _ _ = NProxy
+ 
+instance semiringNProxy :: Semiring (NProxy a) where
+  add _ _ = NProxy
+  mul _ _ = NProxy
+  one = NProxy
+  zero = NProxy
+ 
+instance showNProxy :: Show (NProxy a) where
+  show _ = "NProxy"
 
 foreign import data NCons :: Nat -> Nat -> Nat
 infixl 6 type NCons as :*
